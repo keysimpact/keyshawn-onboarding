@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Landing Page</title>
+    <script>
+      !(function (a, b) {
+        a("squatch", "https://fast.ssqt.io/squatch-js@2", b);
+      })(function (a, b, c) {
+        var d, e, f;
+        (c["_" + a] = {}),
+          (c[a] = {}),
+          (c[a].ready = function (b) {
+            c["_" + a].ready = c["_" + a].ready || [];
+            c["_" + a].ready.push(b);
+          }),
+          (e = document.createElement("script")),
+          (e.async = 1),
+          (e.src = b),
+          (f = document.getElementsByTagName("script")[0]),
+          f.parentNode.insertBefore(e, f);
+      }, this);
+    </script>
+    <script>
+      window.squatchTenant = "test_afomyz9sbbao3";
+    </script>
+  </head>
+  <body>
+    <squatch-popup widget="p/onboarding-referral-program/w/friendWidget"><button>Click me!</button></squatch-popup>
+  </body>
+</html>
