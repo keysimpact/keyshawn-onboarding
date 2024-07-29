@@ -3,30 +3,77 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Landing Page</title>
-    <script>
-      !(function (a, b) {
-        a("squatch", "https://fast.ssqt.io/squatch-js@2", b);
-      })(function (a, b, c) {
-        var d, e, f;
-        (c["_" + a] = {}),
-          (c[a] = {}),
-          (c[a].ready = function (b) {
-            c["_" + a].ready = c["_" + a].ready || [];
-            c["_" + a].ready.push(b);
-          }),
-          (e = document.createElement("script")),
-          (e.async = 1),
-          (e.src = b),
-          (f = document.getElementsByTagName("script")[0]),
-          f.parentNode.insertBefore(e, f);
-      }, this);
+    <script type="text/javascript">
+      (function (a, b, c, d, e, f, g) {
+        e["ire_o"] = c;
+        e[c] =
+          e[c] ||
+          function () {
+            (e[c].a = e[c].a || []).push(arguments);
+          };
+        f = d.createElement(b);
+        g = d.getElementsByTagName(b)[0];
+        f.async = 1;
+        f.src = a;
+        g.parentNode.insertBefore(f, g);
+      })(
+        "https://utt.impactcdn.com/A5032055-02cf-46cc-a36d-ab579d57bfc265535.js",
+        "script",
+        "ire",
+        document,
+        window
+      );
+      ire("identify", {
+        customerid: "" /*INSERT CUSTOMER ID*/,
+        customeremail: "" /*INSERT SHA1 HASHED CUSTOMER EMAIL*/,
+      });
     </script>
-    <script>
-      window.squatchTenant = "test_afomyz9sbbao3";
-    </script>
+    <title>HubSpot</title>
   </head>
   <body>
-    <squatch-popup widget="p/onboarding-referral-program/w/friendWidget"><button>Click me!</button></squatch-popup>
+    <script
+      charset="utf-8"
+      type="text/javascript"
+      src="//js.hsforms.net/forms/embed/v2.js"
+    ></script>
+    <script>
+      hbspt.forms.create({
+        region: "na1",
+        portalId: "46752622",
+        formId: "f607f706-12e2-4a3d-96c2-09c44a69a174",
+      });
+    </script>
+
+    <script>
+      // 1. When UTT is ready, run the following function.
+      window.impactOnReady = function () {
+        // 2. Retrieve the element you want to auto-fill the referral code into from the DOM.
+        // The are many methods to do this but some of the most common include:
+        // getElementbyId - Retrieve the element by using its id https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById
+        // getElementByClassName - Retrieve the element by its className https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementsByClassName
+        // getElementByTag - Retrive the element by using its tag https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementsByTagName
+        const element = document.getElementById("referralCodeField");
+
+        // 3. Make the request to retrieve referral information from the dropped cookie
+        // Cookies are dropped after a user clicks on a sharelink
+        // This cookie includes important referral information such as the referrer's referral code
+        // To read more on our referral cookies see https://integrations.impact.com/impact-brand/docs/tracking-cookies-for-advocate-programs
+        impact
+          .api()
+          .referralCookie()
+          .then(function (response) {
+            // 4. Retrieve a specific programs referral code from the response and set it on your element
+            // The response returns referral codes within an object called "codes"
+            // This object is key value pair where the key is the program id and the value is the referral code
+            // Example:
+            // {
+            // "program-1": "REFERRALCODE1",
+            // "program-2": "REFERRALCODE2"
+            // }
+            // Use your program id to access and apply the correct referral code to your element
+            element.value = response.codes[""];
+          });
+      };
+    </script>
   </body>
 </html>
