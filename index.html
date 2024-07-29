@@ -37,42 +37,38 @@
       src="//js.hsforms.net/forms/embed/v2.js"
     ></script>
     <script>
-      hbspt.forms.create({
-        region: "na1",
-        portalId: "46752622",
-        formId: "f607f706-12e2-4a3d-96c2-09c44a69a174",
-      });
-    </script>
-
-    <script>
       // 1. When UTT is ready, run the following function.
       window.impactOnReady = function () {
-        // 2. Retrieve the element you want to auto-fill the referral code into from the DOM.
-        // The are many methods to do this but some of the most common include:
-        // getElementbyId - Retrieve the element by using its id https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById
-        // getElementByClassName - Retrieve the element by its className https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementsByClassName
-        // getElementByTag - Retrive the element by using its tag https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementsByTagName
-        const element = document.getElementById("referralCodeField");
+        // 2. Load your HubSpot form
+        //  To fill in the region, portalId and formId use the following steps
+        //      2a. Navigate to the form editor in HubSpot
+        //      2b. Click the Embed button in the top right
+        //      2c. Copy and paste the region, portalId and formId into this code
+        hbspt.forms.create({
+          region: "na1",
+          portalId: "46752622",
+          formId: "f607f706-12e2-4a3d-96c2-09c44a69a174",
 
-        // 3. Make the request to retrieve referral information from the dropped cookie
-        // Cookies are dropped after a user clicks on a sharelink
-        // This cookie includes important referral information such as the referrer's referral code
-        // To read more on our referral cookies see https://integrations.impact.com/impact-brand/docs/tracking-cookies-for-advocate-programs
-        impact
-          .api()
-          .referralCookie()
-          .then(function (response) {
-            // 4. Retrieve a specific programs referral code from the response and set it on your element
-            // The response returns referral codes within an object called "codes"
-            // This object is key value pair where the key is the program id and the value is the referral code
-            // Example:
-            // {
-            // "program-1": "REFERRALCODE1",
-            // "program-2": "REFERRALCODE2"
-            // }
-            // Use your program id to access and apply the correct referral code to your element
-            element.value = response.codes[""];
-          });
+          // 3. Add a function to run when the form is loaded
+          onReady: ($form) => {
+            // 4. Make the request to retrieve referral information from the dropped cookie
+            //  Cookies are dropped after a user clicks on a sharelink
+            //  This cookie includes important referral information such as the referrer's referral code
+            //  To read more on our referral cookies see https://integrations.impact.com/impact-brand/docs/tracking-cookies-for-advocate-programs
+            impact
+              .api()
+              .referralCookie()
+              .then(function (response) {
+                // 5. Retrieve the form field you want to autofill the referral cookie into
+                const referralCookieField = Array.from($form).find(
+                  (input) => input.name === "impact_referralcookies"
+                );
+
+                // 6. Set the value of the form field to be the participants referral cookie
+                referralCookieField.value = response.encodedCookie;
+              });
+          },
+        });
       };
     </script>
   </body>
